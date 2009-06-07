@@ -26,7 +26,7 @@ end
   $stderr.puts "#{maze[start_row][start_col].chr} -> #{maze[finish_row][finish_col].chr}"
 
 def adjacency(row, col)
-  [[row+1, col], [row-1, col], [row, col+1], [row, col-1]]
+  [[row+1, col], [row, col+1], [row-1, col], [row, col-1]]
 end
 
 def pathable(maze, row, col)
@@ -63,14 +63,14 @@ loop do
   path = current[2]
   new_path = path + [[row, col]]
   pathables = pathable(maze, row, col)
-  $stderr.puts maze.join("\n"), ''
+#   $stderr.puts maze.join("\n"), ''
   finished = finished(maze, pathables)
   if finished
     finished << (new_path + [[finish_row, finish_col]])
     break
   end
   queued_pathables = pathables.map{ |p| p << new_path }
-  $stderr.puts queued_pathables.inspect
+#   $stderr.puts queued_pathables.inspect
   processing_queue += queued_pathables
 end
 
@@ -97,13 +97,18 @@ end
 dirs = finished[2][1..-1].inject(['', finished[2][0]]) do |memo, cur|
   dir = memo[0]
   prev = memo[1]
-  $stderr.puts memo.inspect, cur.inspect
+#   $stderr.puts memo.inspect, cur.inspect
   dir << direction(prev, cur)
   [dir, cur]
 end
-
-$stderr.puts dirs
-$stderr.puts sock.eof?.inspect
+$stderr.puts
+$stderr.puts sock.closed?.inspect
+$stderr.puts dirs.inspect
+$stderr.puts dirs[0]
+sock.puts dirs[0]
+$stderr.puts sock.closed?.inspect
+sleep 1
+$stderr.puts sock.closed?.inspect
 $stderr.puts sock.gets
 $stderr.puts sock.gets
 $stderr.puts sock.gets
