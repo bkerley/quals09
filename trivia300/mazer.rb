@@ -1,7 +1,7 @@
 require 'socket'
 pass = "MAZE4J002PLAY"
 sock = IO.popen('nc -i1 pwn2.ddtek.biz 11511', 'w+')
-
+mazes = File.open('mazes.txt','a')
 sock.puts pass
 $stderr.puts sock.gets # password / good luck
 $stderr.puts sock.gets # solutions
@@ -35,6 +35,8 @@ n = 0
 #   $stderr.puts "s #{start_row} #{start_col}"
 #   $stderr.puts "f #{finish_row} #{finish_col}"
 #   $stderr.puts "#{maze[start_row][start_col].chr} -> #{maze[finish_row][finish_col].chr}"
+
+  mazes.puts maze, ''
 
   def adjacency(row, col)
     [[row+1, col], [row, col+1], [row-1, col], [row, col-1]]
