@@ -69,7 +69,7 @@ n = 0
   begin
     loop do
       if processing_queue == []
-        raise "FUCK UNSOLVABLES!!!"
+        raise "gently caress UNSOLVABLES!!!"
       end
       current = processing_queue.shift
       row = current[0]
